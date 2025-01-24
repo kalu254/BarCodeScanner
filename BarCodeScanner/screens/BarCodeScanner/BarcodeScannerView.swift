@@ -11,25 +11,24 @@ struct BarcodeScannerView: View {
     
     
     @StateObject var viewModel = BarCodeScannerViewModel()
-    @State private var scannedCode : String?
-    @State private var alerItem: AlertItem?
+    
     
     var body: some View {
         VStack {
             NavigationView {
                 VStack{
-                    ScannerView(scannedcode: $scannedCode, alertItem: $alerItem).frame(width: .infinity, height: 300)
-                    
-                    Label( "Scan BarCode", systemImage:
+                    ScannerView(scannedcode: $viewModel.scannedCode, alertItem: $viewModel.alertItem).frame(width: .infinity, height: 300)
+        
+                    Label("Scan BarCode", systemImage:
                             "barcode.viewfinder").font(.title)
                     Spacer().frame(height: 60)
-                    Text("Not yet scanned")
-                        .bold().foregroundColor(.green)
+                    Text(viewModel.status)
+                        .bold().foregroundColor(viewModel.statusTextColor)
                         .font(.largeTitle)
                         .padding()
               
                 }.navigationTitle("BarCode Scanner")
-                    .alert(item: $alerItem, content: {
+                    .alert(item: $viewModel.alertItem, content: {
                         alerItem in Alert(title: Text(alerItem.title), message: Text(alerItem.message), dismissButton: alerItem.dismissButton)
                     })
             }

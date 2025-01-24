@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ScannerView: UIViewControllerRepresentable {
 
-    @Binding var scannedcode: String?
+    @Binding var scannedcode: String
     @Binding var alertItem: AlertItem?
     
 
